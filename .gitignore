@@ -1,6 +1,7 @@
 # Project-specific stuff
 
 /data/
+/output/
 /.snakemake/
 **/.DS_Store
 /playground/
