@@ -42,4 +42,4 @@ rule data_cleaning:
     output:
         "data/Homegate_data_cleaned.csv"
     script:
-        "src/homegate_cleaning.ipynb"
+        "src/homegate_cleaning.py"
