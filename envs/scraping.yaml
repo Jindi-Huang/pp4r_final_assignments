@@ -24,3 +24,6 @@ dependencies:
   - gdal
   - folium
   - geopandas
+  - sys
+  - numpy
+  - statsmodels

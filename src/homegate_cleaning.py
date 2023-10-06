@@ -1,7 +1,12 @@
 import pandas as pd
 import os
 import numpy as np
-os.chdir('/Users/jindi/Documents/GitHub/pp4r_final_assignments') # change this to your path
+import sys
+
+# Get the grandparent directory of the script's directory
+script_path = os.path.abspath(sys.argv[0])
+grandparent_dir = os.path.dirname(os.path.dirname(os.path.dirname(script_path)))
+os.chdir(grandparent_dir) # change this to your path
 
 def data_cleaning(input_path, output_path):
     """Clean the data and export
@@ -87,7 +92,8 @@ def data_cleaning(input_path, output_path):
     df.to_csv(output_path, index=False)
 
 if __name__ == "__main__":
+    print
     data_cleaning(
-        snakemake.input["data"], 
-        snakemake.output["data"]
+        snakemake.input[0],
+        snakemake.output[0]
     )
