@@ -89,6 +89,12 @@ def data_cleaning(input_path, output_path):
     df['City'] = df['City'].replace("Glattpark", "Opfikon")
     df['City'] = df['City'].replace("Kilchberg ZH", "Kilchberg")
 
+    # Drop if Gross Rent too high (N = 2)
+    df = df[df['Gross Rent (CHF)'] < 20000]
+    
+    # Create a column for gross rent per square meter
+    df['Gross Rent Per Sqm (CHF/m2)'] = df['Gross Rent (CHF)'] / df['Living Area (sq. m.)']
+
     df.to_csv(output_path, index=False)
 
 if __name__ == "__main__":

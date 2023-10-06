@@ -7,7 +7,6 @@ import statsmodels.api as sm
 from stargazer.stargazer import Stargazer
 
 
-
 def data_analysis(input_path, output_files):
     """Analyze the data and export the results
 
@@ -18,12 +17,6 @@ def data_analysis(input_path, output_files):
 
     ## Read file
     df = pd.read_csv(input_path)
-
-    ## Drop if Gross Rent too high (N = 2)
-    df = df[df['Gross Rent (CHF)'] < 20000]
-    
-    ## Create a column for gross rent per square meter
-    df['Gross Rent Per Sqm (CHF/m2)'] = df['Gross Rent (CHF)'] / df['Living Area (sq. m.)']
 
     ## Histogram of Gross Rent and Gross Rent per Sqm
     fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(10, 10))
