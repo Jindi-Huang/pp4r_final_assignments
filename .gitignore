@@ -2,6 +2,10 @@
 
 /data/
 /output/
+/ortschaftenverzeichnis_plz_2056.shp/
+/swissboundaries3d_2023-01_2056_5728.shp/
+/.geojson
+/.metadata
 /.snakemake/
 **/.DS_Store
 /playground/
