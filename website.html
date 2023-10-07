@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style type="text/css">
+        html, body {
+            margin: 0;
+            padding: 5px 20px;
+        }
+
+        body {
+            color: #292929;
+            font: 140% Roboto, Arial, sans-serif;
+            font-weight: 300;
+        }
+
+        p {
+            padding: 0 10px;
+            line-height: 1.8;
+        }
+
+        ul li {
+            padding-right: 10px;
+            line-height: 1.6;
+        }
+
+        h3 {
+            padding: 5px 20px;
+            margin: 0;
+        }
+
+        div#header {
+            position: relative;
+        }
+
+        div#header h1 {
+            height: 80px;
+            line-height: 80px;
+            margin: 0;
+            padding-left: 10px;
+            background: #e0e0e0;
+            color: #292929;
+        }
+
+        div#header a {
+            position: absolute;
+            right: 0;
+            top: 23px;
+            padding: 10px;
+            color: #006;
+        }
+
+        div#wrapper {
+            float: left;
+            width: 100%;
+        }
+
+        div#content {
+            margin: 0 25%;
+        }
+        
+    </style>
+
+
+    <title>An exploration of the Zurich property market</title>
+  </head>
+  <body>
+    <h1>An exploration of the Zurich property market</h1>
+    
+    <p> 
+        Two hundred detailed applications, three spotless reference letters, and absolutely no musical instruments - some say that finding an apartment in Zurich is harder than finding your dream job. 
+        After experiencing the struggle of trying to find a suitable apartment in Zurich, we decided to explore the features of the Zurich rental property market. 
+        We wanted to answer questions like is this 2.5 room apartment in Wiedikon for 4,000.-/month a total rip-off? 
+        Or is this new build 1 room apartment in Oerlikon for 800.-/month a total steal?
+        So read on for a deep dive into what has been described as the most expensive and most competitive property market in the world. 
+    </p>
+    
+    <h3>Key statistics about the Zurich property market</h3>
+
+    <p>
+        We began by scraping the Homegate website for properties for rent in Zurich. We found 980 properties on the 50 most recent search results pages. We dropped 
+        properties with a rental price over 20,000.-/month as these appeared to be outliers. We then plotted a histogram to see the distribution of rent prices.
+    </p>
+
+    <div style="text-align: center;">
+        <img src="output/figures/histogram_gross_rent.png" width = "700" >
+     </div>
+    
+     <p>
+        As you can see there is a wide distribution of rental prices in the market, and somewhat surprisingly, rent per sqm is even more dispersed. 
+        Now let's take a look at how average rent varies between the different municipalities of Zurich:
+    </p>
+
+    <div style="text-align: center;">
+        <img src="output/figures/histogram_gross_rent_by_city.png" width = "400" >
+     </div>
+    
+     <p>
+        It seems like average rent varies a lot by municipality. Glattbrugg and Oberengstringen would be good areas to search if your budget is limited, while if
+         you have a small fortune to blow on rent, look at areas along the lake such as Kilchberg and Zollikon. I wonder if the delicious smell of chocolate from
+         the Lindt factory in Kilchberg is what is driving the prices up... It's time to look at the distribution of some other property characteristics such as living
+         area, year built, number of rooms and floor level (unfortunately, we don't have data on proximity to chocolate factories yet).
+    </p>
+
+    <div style="text-align: center;">
+        <img src="output/figures/histogram_4_characteristics.png" width = "800" >
+     </div>
+
+     <p>
+        So what does this tell us? Most properties for rent are under 200 sq. m. but there a few sprawling mansions around. The vast majority of properties have been 
+        built since 1900 but there are a few "period" properties up for grabs. In addition, the most common number of rooms is 3.5. Furthermore, properties are 
+        typically on floors 1 to 5 but you can also find an apartment on the 22nd floor (hope there's a lift!) or on the -2nd floor for those who prefer to live in 
+        darkness (it could also be a garage space).
+    </p>
+
+    <div style="text-align: center;">
+        <img src="output/figures/scatter_rent_living_area.png" width = "500" >
+     </div>
+    
+    <p>
+        Looking at the relationship between living space and rent, we see that these are closely correlated.
+    </p>
+
+    <div style="text-align: center;">
+        <img src="output/figures/scatter_characteristics_year.png" width = "800" >
+     </div>
+
+     <p>
+        The relationship between other property characteristics and rent is less clear-cut. A correlation matrix might tell us more...
+    </p>
+
+    <div style="text-align: center;">
+        <img src="output/figures/heat_map.png" width = "600" >
+     </div>
+     
+     <p>
+        The correlation matrix shows that, as we have seen in the scatterplot, rent and living area are strongly positively correlated. Number of rooms is also highly
+        positively correlated with rent. Year built is negatively correlated with rent. Can we then say that new builds are more expensive? Well, maybe. It also appears
+        that year built is negatively correlated with number of rooms. It might therefore be that new builds are only more expensive because they typically have fewer
+        rooms. So, if you were looking for a 2 room apartment and wanted to know whether an old or new building would be cheaper, we cannot yet say. We now perform
+        linear regression to establish what really determines the rental price of property in Zurich. 
+    </p>
+
+    <h3>Regression analysis</h3>
+
+    <div style="text-align: center;">
+        Regression on Gross Rent</div><br><table style="text-align:center;border:1px solid black;margin-left:auto;margin-right:auto;"><tr><td colspan="6" style="border-bottom: 1px solid black"></td></tr>
+            <tr><td style="text-align:left"></td><td colspan="5"><em>Dependent variable: Gross Rent (CHF)</em></td></tr><tr><td style="text-align:left"></td><tr><td style="text-align:left"></td><td>(1)</td><td>(2)</td><td>(3)</td><td>(4)</td><td>(5)</td></tr>
+            <tr><td colspan="6" style="border-bottom: 1px solid black"></td></tr>
+            
+            <tr><td style="text-align:left">Living Area (sq. m.)</td><td>26.397<sup>***</sup></td><td>31.920<sup>***</sup></td><td>33.082<sup>***</sup></td><td>38.039<sup>***</sup></td><td>38.867<sup>***</sup></td></tr>
+            <tr><td style="text-align:left"></td><td>(0.889)</td><td>(1.682)</td><td>(2.107)</td><td>(2.938)</td><td>(2.719)</td></tr>
+            <tr><td style="text-align:left">Number of Rooms</td><td></td><td>-124.037<sup>**</sup></td><td>-87.304<sup></sup></td><td>-174.205<sup>*</sup></td><td>-137.498<sup></sup></td></tr>
+            <tr><td style="text-align:left"></td><td></td><td>(56.219)</td><td>(67.922)</td><td>(91.722)</td><td>(85.236)</td></tr>
+            <tr><td style="text-align:left">Floor Level</td><td></td><td></td><td>57.641<sup>**</sup></td><td>35.884<sup></sup></td><td>40.952<sup></sup></td></tr>
+            <tr><td style="text-align:left"></td><td></td><td></td><td>(23.434)</td><td>(31.252)</td><td>(29.372)</td></tr>
+            <tr><td style="text-align:left">Year Built</td><td></td><td></td><td></td><td>-2.822<sup>**</sup></td><td>-1.023<sup></sup></td></tr>
+            <tr><td style="text-align:left"></td><td></td><td></td><td></td><td>(1.100)</td><td>(1.016)</td></tr>
+            
+            <tr><td style="text-align: left">City FE</td><td>No</td><td>No</td><td>No</td><td>No</td><td>Yes</td></tr><td colspan="6" style="border-bottom: 1px solid black"></td></tr>
+            <tr><td style="text-align: left">Observations</td><td>855</td><td>776</td><td>537</td><td>292</td><td>292</td></tr><tr><td style="text-align: left">R<sup>2</sup></td><td>0.508</td><td>0.562</td><td>0.536</td><td>0.539</td><td>0.664</td></tr><tr><td style="text-align: left">Adjusted R<sup>2</sup></td><td>0.508</td><td>0.561</td><td>0.533</td><td>0.533</td><td>0.631</td></tr><tr><td style="text-align: left">Residual Std. Error</td><td>1188.670</td><td>1152.758</td><td>1142.869</td><td>1144.929</td><td>1018.160</td></tr><tr><td style="text-align: left">F Statistic</td><td>881.773<sup>***</sup></td><td>496.791<sup>***</sup></td><td>205.063<sup>***</sup></td><td>84.042<sup>***</sup></td><td>20.116<sup>***</sup></td></tr>
+            <tr><td colspan="6" style="border-bottom: 1px solid black"></td></tr><tr><td style="text-align: left">Note:</td><td colspan="5" style="text-align: right"><sup>*</sup>p&lt;0.1; <sup>**</sup>p&lt;0.05; <sup>***</sup>p&lt;0.01</td></tr></table>
+
+    <p>
+        Column (1) shows that when we do a simple regression of rent on living area, there is a positive relationship. This is in line with what we expect. 
+        In column (2) we include number of rooms as a covariate. The results are interesting - when we control for number of rooms, the coefficient on living 
+        area increases. In addition, the coefficient on number of rooms is negative and significant. This suggests that on average a 2 room 40 sq. m. 
+        apartment is cheaper than a 1 room 40 sq.m. apartment. In column (3) we include floor level as an additional covariate. The coefficient on floor level is 
+        positive and significant at the 5% level. This suggests that people value being higher up in a building. The coefficient on number of rooms is no 
+        longer significant, suggesting that the negative relationship between number of rooms and rent once living area is controlled for is due to properties on 
+        higher floors tending to have fewer rooms and renters valuing properties on higher floors more. Column (4) includes year built: we see a negative and 
+        significant coefficient on year built. This suggests that renters value older properties more than newer ones. Note that the coefficient on living 
+        area increases when we include additional covariates. 
+    </p>
+    
+    <p>
+        Column (5) includes municipality fixed effects. The coefficient on year built is no longer significant, suggesting that older properties may only be more 
+        expensive because they are located in more desirable neighbourhoods. The coefficient on living area is significant at the 1% level. No other covariate 
+        is significant at any level. This regression tells us that an extra sq. m. in Zurich adds around 39.- to the monthly rent for a property. The R&#178; suggests 
+        that living area, number of rooms, floor level, year built and municipality account for around two thirds of the variation in property prices, with the 
+        remaining third unexplained by these characteristics.
+    </p>
+
+
+
+  </body>
+
+</html>

@@ -1,0 +1,29 @@
+name: assignment
+
+channels: 
+  - conda-forge
+
+dependencies:
+  - python
+  - pandas
+  - requests
+  - re
+  - time
+  - bs4
+  - os
+  - selenium
+  - time
+  - snakemake
+  - unrar
+  - httpie
+  - ipykernel
+  - chromedriver-autoinstaller
+  - matplotlib
+  - seaborn
+  - stargazer
+  - gdal
+  - folium
+  - geopandas
+  - sys
+  - numpy
+  - statsmodels
