@@ -28,4 +28,3 @@ dependencies:
   - numpy
   - statsmodels
   - json
-  - osgeo
