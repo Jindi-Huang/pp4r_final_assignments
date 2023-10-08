@@ -27,3 +27,5 @@ dependencies:
   - sys
   - numpy
   - statsmodels
+  - json
+  - osgeo

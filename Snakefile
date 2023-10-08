@@ -26,7 +26,7 @@ rule data_analysis:
         "output/figures/scatter_rent_living_area.png",
         "output/figures/scatter_characteristics_year.png",
         "output/figures/heat_map.png",
-	"output/figures/regression_table.html"
+	"output/htmls/regression_table.html"
     script:
         "src/homegate_analysis.py"
 
@@ -53,3 +53,10 @@ rule data_scraping:
         "data/Homegate_data.csv"
     script:
         "src/homegate_scraping.py"
+
+# Download geographical data
+# rule data_download:
+#    output:
+#        "data/PLZO_SHP_LV95"
+#    shell:
+#        "curl -O https://data.geo.admin.ch/ch.swisstopo-vd.ortschaftenverzeichnis_plz/ortschaftenverzeichnis_plz/ortschaftenverzeichnis_plz_2056.shp.zip"

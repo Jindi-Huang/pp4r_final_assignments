@@ -9,11 +9,6 @@ import time
 from selenium.webdriver.common.by import By
 import sys
 
-# Get the grandparent directory of the script's directory
-script_path = os.path.abspath(sys.argv[0])
-grandparent_dir = os.path.dirname(os.path.dirname(os.path.dirname(script_path)))
-os.chdir(grandparent_dir)
-
 def data_scraping(output_path):
     """Scrape the data from homegate.ch and save it to a csv file.
     
