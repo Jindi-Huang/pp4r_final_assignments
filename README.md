@@ -17,6 +17,7 @@ cd /path/to/project_pp4rs
 conda activate snakemake
 snakemake --cores all --use-conda --conda-frontend conda
 ```
+Note that data scraping may take a considerable amount of time (~1.5h)
 
 # Output
 You can find the output with the main summary statistics and graphs of this analysis in ```pp4r_final_assignments/website.html```.
