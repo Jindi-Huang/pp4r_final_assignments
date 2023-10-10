@@ -14,6 +14,18 @@ rule create_website:
     output:
         "website.html"
 
+
+# Create map
+rule create_map:
+    conda: "envs/scraping.yaml"
+    input:
+        "data/Homegate_data_cleaned.csv"
+
+    output: "output/htmls/map.html"
+    script:
+        "src/homegate_postcode.py"
+
+
 # Data analysis
 rule data_analysis:
     conda: "envs/scraping.yaml"
@@ -42,8 +54,6 @@ rule data_cleaning:
     script:
         "src/homegate_cleaning.py"
 
-
-
 # Data scraping
 rule data_scraping:
     conda: "envs/scraping.yaml"
@@ -55,8 +65,16 @@ rule data_scraping:
         "src/homegate_scraping.py"
 
 # Download geographical data
-# rule data_download:
-#    output:
-#        "data/PLZO_SHP_LV95"
-#    shell:
-#        "curl -O https://data.geo.admin.ch/ch.swisstopo-vd.ortschaftenverzeichnis_plz/ortschaftenverzeichnis_plz/ortschaftenverzeichnis_plz_2056.shp.zip"
+rule data_download:
+    output:
+        directory("data/PLZO_SHP_LV95"),
+	"data/ch-plz.geojson"
+    shell: '''
+        curl -o data/ortschaftenverzeichnis_plz_2056.shp.zip https://data.geo.admin.ch/ch.swisstopo-vd.ortschaftenverzeichnis_plz/ortschaftenverzeichnis_plz/ortschaftenverzeichnis_plz_2056.shp.zip &&
+        unzip -qo data/ortschaftenverzeichnis_plz_2056.shp.zip -d data/ &&
+	curl -L -o data/ch-plz.geojson https://github.com/mikpan/ch-maps/raw/master/geo/ch-plz.geojson
+
+	'''
+
+
+
