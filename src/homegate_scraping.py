@@ -7,7 +7,7 @@ import os
 from selenium import webdriver
 import time
 from selenium.webdriver.common.by import By
-import sys
+
 
 def data_scraping(output_path):
     """Scrape the data from homegate.ch and save it to a csv file.
@@ -16,7 +16,7 @@ def data_scraping(output_path):
         output_path (str): Path to the raw data (Homegate_data.csv)
     """
 
-    chromedriver_path = os.getcwd() + '/chromedriver'
+    chromedriver_path = os.getcwd() + '/src/chromedriver'
     browser = webdriver.Chrome(executable_path=chromedriver_path)
 
     # Go through all 1-50 of the search pages and find all the links in each page:

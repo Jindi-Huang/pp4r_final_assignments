@@ -1,10 +1,10 @@
 import pandas as pd
 import os
 import numpy as np
-import sys
 import matplotlib.pyplot as plt
 import statsmodels.api as sm
 from stargazer.stargazer import Stargazer
+import seaborn as sns
 
 # Histogram of Gross Rent and Gross Rent per Sqm
 def histogram_gross_rent(df, output_path):
@@ -117,7 +117,7 @@ def scatter_characteristics_year(df, output_path):
 def heat_map(df, output_path):
     df[['Gross Rent (CHF)', 'Additional Expenses (CHF)', 'Living Area (sq. m.)', 'Number of Rooms', 'Floor Level', 'Year Built']].corr()
     # plot the correlation matrix as a heatmap
-    import seaborn as sns
+    
     sns.heatmap(df[['Gross Rent (CHF)', 'Additional Expenses (CHF)', 'Living Area (sq. m.)', 'Number of Rooms', 'Floor Level', 'Year Built']].corr(), annot=True, cmap='coolwarm')
     plt.title('Correlation Matrix')
     # Save heatmap
